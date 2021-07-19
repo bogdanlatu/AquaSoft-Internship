@@ -1,4 +1,4 @@
-var afisare = "Salut";
+var afisare = "Bye";
 
 var cevaNou = "mesaj";
 
