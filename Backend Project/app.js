@@ -1,18 +1,25 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
-app.use(express.json()); 
+const mongoose = require("mongoose");
+const cors = require("cors");
 
-mongoose.connect('mongodb://localhost:27017/backend-project',{useNewUrlParser : true, useUnifiedTopology: true},() =>{
-    console.log('successfully connected to database');
-});
+app.use(cors());
+app.use(express.json());
 
-const employeeRouter = require('./routes/Employee');
-app.use('/employee',employeeRouter);
+mongoose.connect(
+  "mongodb://localhost:27017/backend-project",
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("successfully connected to database");
+  }
+);
 
-const projectRouter = require('./routes/Project');
-app.use('/project',projectRouter);
+const employeeRouter = require("./routes/Employee");
+app.use("/employee", employeeRouter);
 
-app.listen(5000,()=>{
-    console.log('express server started');
+const projectRouter = require("./routes/Project");
+app.use("/project", projectRouter);
+
+app.listen(5000, () => {
+  console.log("express server started");
 });

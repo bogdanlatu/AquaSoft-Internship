@@ -1,0 +1,17 @@
+
+a {
+    text-decoration: none;
+}
+
+ul.nav li a button{
+    color: gray !important;
+    font-weight: bold;
+}
+
+ul.nav li a button:hover{
+    color: black !important;
+}
+
+ul.nav li a button.active{
+    color: black !important;
+}

@@ -1,0 +1,11 @@
+.table {
+    margin-top: 5vh;
+}
+
+.table td,th {
+    text-align: left;   
+ }
+
+div.mb-3 label{
+     margin-right: 500px;
+ }

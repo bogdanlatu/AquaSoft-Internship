@@ -10,7 +10,7 @@ projectRouter.get('/all',(req,res)=>{
         else
             res.json({result : documents});
     });
-});
+}); 
 
 // POST inserarea unui nou proiect
 projectRouter.post('/new',(req,res)=>{
