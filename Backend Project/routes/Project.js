@@ -20,7 +20,7 @@ projectRouter.post('/new',(req,res)=>{
         if(err)
             res.json({error : "Error saving the new project into db"});
         else
-            res.json({message : "Successfully created project"});
+            res.json({result : "Successfully created project"});
     });
 });
 
@@ -29,21 +29,26 @@ projectRouter.post('/new',(req,res)=>{
 projectRouter.put('/modify/:projectId',(req,res)=>{
     const projectId = req.params.projectId;
     const project = req.body;
-
-    Project.updateOne({_id : projectId},
-        {
-            Project_Name : project.Project_Name,
-            Start_Date : project.Start_Date,
-            Planned_End_Date : project.Planned_End_Date,
-            Description : project.Description,
-            Project_Code : project.Project_Code
-        }).exec(err => {
-		if(err)
-            res.json({error : "Error updating the project"});
-        else{
-            res.json({message : "Project updated successfully"});
+  
+    Project.findOneAndUpdate(
+      { _id: projectId },
+      {
+        Project_Name : project.Project_Name,
+        Start_Date : project.Start_Date,
+        Planned_End_Date : project.Planned_End_Date,
+        Description : project.Description,
+        Project_Code : project.Project_Code
+      },
+      {
+        new: true
+      },
+      (err,project) => {
+        if (err) res.json({ error: "Error updating the project" });
+        else if(project) {
+          res.json({ result: project });
         }
-	});
+        else res.json({message: "Can't find project"})
+      });
 
 });
 

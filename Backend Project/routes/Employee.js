@@ -28,21 +28,21 @@ employeeRouter.get("/projects/:employeeId", (req, res) => {
     .populate({ path: "Project_Id" })
     .exec((err, document) => {
       if (err) res.json({ error: "Error finding employee" });
-      else res.json({ message: document });
+      else res.json({ result: document });
     });
 });
 
 // POST (inserarea unui nou angajat)
 employeeRouter.post("/new", (req, res) => {
+  
   const employee = new Employee(req.body);
 
   // search if name is unique???
   employee.save((err) => {
     if (err) res.json({ error: "Error saving the new employee into db" });
-    else res.json({ message: "Successfully created employee" });
-  });
+    else res.json({ result : "Successfully created the employee" });
+  }); 
 
-  //res.json({result : employee});
 });
 
 // PUT (update pe un angajat dupa primary key)
@@ -50,7 +50,7 @@ employeeRouter.put("/modify/:employeeId", (req, res) => {
   const employeeId = req.params.employeeId;
   const employee = req.body;
 
-  Employee.updateOne(
+  Employee.findOneAndUpdate(
     { _id: employeeId },
     {
       Name: employee.Name,
@@ -59,13 +59,18 @@ employeeRouter.put("/modify/:employeeId", (req, res) => {
       Hire_Date: employee.Hire_Date,
       Salary: employee.Salary,
       Job_Title: employee.Job_Title,
-    }
-  ).exec((err) => {
-    if (err) res.json({ error: "Error updating the employee" });
-    else {
-      res.json({ message: "Employee updated successfully" });
-    }
-  });
+      Project_Id: employee.Project_Id
+    },
+    {
+      new: true
+    },
+    (err,employee) => {
+      if (err) res.json({ error: "Error updating the employee" });
+      else if(employee) {
+        res.json({ result: employee });
+      }
+      else res.json({message: "Can't find employee"})
+    });
 });
 
 // DELETE (remove dupa primary key)
