@@ -20,6 +20,9 @@ app.use("/employee", employeeRouter);
 const projectRouter = require("./routes/Project");
 app.use("/project", projectRouter);
 
+const userRouter = require("./routes/User");
+app.use("/user", userRouter);
+
 app.listen(5000, () => {
   console.log("express server started");
 });

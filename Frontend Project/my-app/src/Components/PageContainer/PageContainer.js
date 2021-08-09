@@ -6,6 +6,8 @@ import { Switch, Route } from 'react-router-dom';
 import EmployeesPage from '../EmployeesPage/EmployeesPage';
 import ProjectsPage from '../ProjectsPage/ProjectsPage';
 import HomePage from '../HomePage/HomePage';
+import RegisterPage from "../RegisterPage/RegisterPage";
+import LoginPage from "../LoginPage/LoginPage";
 
 function PageContainer() {
   return (
@@ -14,6 +16,8 @@ function PageContainer() {
             <Route exact path="/" component={HomePage}/>
             <Route path="/employees" component={EmployeesPage}/>
             <Route path="/projects" component={ProjectsPage}/>
+            <Route path="/register" component={RegisterPage}/>
+            <Route path="/login" component={LoginPage}/>
         </Switch>
     </div>
   );
